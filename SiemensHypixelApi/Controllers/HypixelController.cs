@@ -33,4 +33,10 @@ public class HypixelController
     {
         return _service.GetAllAccessories();
     }
+
+    [HttpGet("apiKeyCheck")]
+    public async Task<ActionResult<bool>> ApiKeyCheck([FromBody] string apiKey)
+    {
+        return await _service.ApiKeyCheck(apiKey);
+    }
 }

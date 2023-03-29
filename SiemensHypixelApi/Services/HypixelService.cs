@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiTest.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
@@ -86,5 +87,12 @@ public class HypixelService
         var json = new JObject(new JProperty("collections", collArr)).ToString();
         var dto = JsonConvert.DeserializeObject<CollectionObjectDto>(json);
         return dto;
+    }
+
+    public async Task<bool> ApiKeyCheck(string apiKey)
+    {
+        var request = new RestRequest("/key");
+        var response = await _client.ExecuteAsync<ApiKeyDto>(request);
+        return response.Data!.Success;
     }
 }
